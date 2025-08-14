@@ -16,7 +16,7 @@ import { faPencil, faTrash, faUserCheck } from '@fortawesome/free-solid-svg-icon
   styleUrl: './players.css',
 })
 export class Players implements OnInit {
-  protected playersObersvable$ = new Observable<DataState<IPlayers[]>>();
+  protected playersObservable$ = new Observable<DataState<IPlayers[]>>();
   private playerService = inject(PlayerService);
   protected readonly StateStatus = StateStatus;
   faPencil = faPencil;
@@ -28,7 +28,7 @@ export class Players implements OnInit {
   }
 
   onGetAllPlayers() {
-    this.playersObersvable$ = this.playerService.getAllPlayers().pipe(
+    this.playersObservable$ = this.playerService.getAllPlayers().pipe(
       map((data) => ({
         dataStateStatus: StateStatus.LOADED,
         dataState: data,

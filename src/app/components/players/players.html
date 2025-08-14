@@ -50,7 +50,7 @@
 
 
 <div class="container">
-  @if(playersObersvable$ | async; as state){
+  @if(playersObservable$ | async; as state){
   <ng-container>
     @switch (state.dataStateStatus) { @case (StateStatus.LOADING) {
     <div class="text-center">

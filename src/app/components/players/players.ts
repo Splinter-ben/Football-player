@@ -24,7 +24,7 @@ export class Players implements OnInit {
   faUserCheck = faUserCheck;
 
   ngOnInit(): void {
-    this.onGetAllPlayers();
+  
   }
 
   onGetAllPlayers() {

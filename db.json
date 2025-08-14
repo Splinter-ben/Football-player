@@ -1,42 +1,6 @@
 {
   "players": [
     {
-      "id": 3,
-      "playerName": "Eto'o",
-      "email": "Eto'o@gmail.com",
-      "gender": "M",
-      "selected": false,
-      "countryId": "1",
-      "countryName": "Cameroun"
-    },
-    {
-      "id": 5,
-      "playerName": "Michelle",
-      "email": "michelle@gmail.com",
-      "gender": "F",
-      "selected": true,
-      "countryId": "3",
-      "countryName": "Brésil"
-    },
-    {
-      "id": 7,
-      "playerName": "Messi",
-      "email": "messi@gmail.com",
-      "gender": "M",
-      "selected": false,
-      "countryId": "4",
-      "countryName": "Argentine"
-    },
-    {
-      "id": 14,
-      "playerName": "Caca",
-      "email": "caca@gmail.com",
-      "gender": "M",
-      "selected": true,
-      "countryId": "3",
-      "countryName": "Brésil"
-    },
-    {
       "id": 9,
       "playerName": "Zidane",
       "email": "zidane@gmail.com",

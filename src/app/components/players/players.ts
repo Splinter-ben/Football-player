@@ -86,7 +86,7 @@ export class Players implements OnInit {
   }
 
   onChangeStatus(p: IPlayers) {
-    this.playerService.onChangeStatus(p).subscribe((data: IPlayers) => {
+    this.playerService.changeStatus(p).subscribe((data: IPlayers) => {
       return data.selected;
     });
   }
@@ -94,5 +94,38 @@ export class Players implements OnInit {
   onUpdatePlayer() {}
 
   onNewPlayers() {}
-  deletePlayer() {}
+
+  onDeletePlayers(p: IPlayers) {
+    let conf = confirm(
+      `Are you sure you want to delete the player: ${p.playerName}?`
+    );
+    if (conf) {
+      this.playerService.deletePlayer(p).subscribe({
+        next: (data) => {
+          console.log('Player deleted successfully:', data);
+          // Filter out the deleted player from the current observable
+          this.playersObservable$ = this.playersObservable$.pipe(
+            map((state) => {
+              if (
+                state.dataStateStatus === StateStatus.LOADED &&
+                state.dataState
+              ) {
+                return {
+                  ...state,
+                  dataState: state.dataState.filter(
+                    (player) => player.id !== p.id
+                  ),
+                };
+              }
+              return state;
+            })
+          );
+        },
+        error: (error) => {
+          console.error('Error deleting player:', error);
+          alert('Failed to delete player. Please try again.');
+        },
+      });
+    }
+  }
 }

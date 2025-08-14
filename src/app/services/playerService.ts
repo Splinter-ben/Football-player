@@ -8,24 +8,28 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PlayerService {
   private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:3000/';
+  private apiURL = 'http://localhost:3000/';
 
   getAllPlayers(): Observable<IPlayers[]> {
-    return this.http.get<IPlayers[]>(this.baseUrl + 'players');
+    return this.http.get<IPlayers[]>(this.apiURL + 'players');
   }
 
   getAllPlayerSelected(): Observable<IPlayers[]> {
-    return this.http.get<IPlayers[]>(this.baseUrl + 'players?selected=true');
+    return this.http.get<IPlayers[]>(this.apiURL + 'players?selected=true');
   }
 
   getAllPlayerSearch(playerName: string): Observable<IPlayers[]> {
     return this.http.get<IPlayers[]>(
-      this.baseUrl + 'players?playerName_like=' + playerName
+      this.apiURL + 'players?playerName_like=' + playerName
     );
   }
 
-  onChangeStatus(p: IPlayers): Observable<IPlayers> {
+  changeStatus(p: IPlayers): Observable<IPlayers> {
     p.selected = !p.selected;
-    return this.http.put<IPlayers>(this.baseUrl + 'players/' + p.id, p);
+    return this.http.put<IPlayers>(this.apiURL + 'players/' + p.id, p);
+  }
+
+  deletePlayer(p: IPlayers): Observable<IPlayers> {
+    return this.http.delete<IPlayers>(`${this.apiURL}players/${p.id}`);
   }
 }

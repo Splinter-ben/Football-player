@@ -33,6 +33,7 @@ export class Players implements OnInit {
   protected readonly StateStatus = StateStatus;
   protected playersObservable$ = new Observable<DataState<IPlayers[]>>();
   private playerService = inject(PlayerService);
+  protected playerName= signal('');
 
   ngOnInit(): void {
     this.onGetAllPlayers();
@@ -64,9 +65,9 @@ export class Players implements OnInit {
     );
   }
 
-  onSearch(formControl:any ) {
+  onSearch() {
    this.playersObservable$ = this.playerService
-      .getAllPlayerSearch(formControl.playerName)
+      .getAllPlayerSearch(this.playerName())
       .pipe(
         map((data) => ( console.log(data),{
           dataStateStatus: StateStatus.LOADED,

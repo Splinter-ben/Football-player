@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mb-1">
   <ul class="nav nav-pills mt-5 ml-5">
   <li class="nav-item bclick">
      <button type="button" class="btn btn-outline-primary me-2" (click)="onGetAllPlayers()">ALL</button>
@@ -12,22 +12,20 @@
     <button type="button" class="btn btn-outline-primary" (click)="onNewPlayers()">New</button>
   </li>
 
-    <form
-    class="d-flex m-lg-auto"
-
-    (submit)="onSearch()"
-  >
-    <input
-      type="search"
-      class="form-control me-2"
-      placeholder="Search"
-      name="keyWord"
-      ngModel
-      aria-label="Search"
-    />
-    <span class="align-middle">Search</span>
-  </form>
-</ul>
+    <form #formControl="ngForm" (ngSubmit)="onSearch(formControl.value)"
+        class="d-flex m-lg-auto"
+      >
+        <input
+          type="text"
+          class="form-control me-2"
+          placeholder="Search"
+          name="playerName"
+          ngModel
+          aria-label="Search"
+        />
+        <button type="submit" class="btn btn-secondary">Search</button>
+    </form>
+  </ul>
 </div>
 
 

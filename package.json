@@ -23,7 +23,7 @@
     "bootstrap": "^5.3.7",
     "concurrently": "^9.2.0",
     "css-select": "^6.0.0",
-    "json-server": "^1.0.0-beta.3",
+    "json-server": "^0.17.4",
     "rxjs": "~7.8.0",
     "schematics-css-migrate": "^2.3.17",
     "tslib": "^2.3.0"

@@ -1,5 +1,5 @@
 {
-  "player": [
+  "players": [
     {
       "id": 3,
       "playerName": "Eto'o",
@@ -23,7 +23,7 @@
       "playerName": "Messi",
       "email": "messi@gmail.com",
       "gender": "M",
-      "selected": true,
+      "selected": false,
       "countryId": "4",
       "countryName": "Argentine"
     },

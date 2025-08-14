@@ -33,7 +33,7 @@ export class Players implements OnInit {
   protected readonly StateStatus = StateStatus;
   protected playersObservable$ = new Observable<DataState<IPlayers[]>>();
   private playerService = inject(PlayerService);
-  protected playerName= signal('');
+  protected playerName = signal('');
 
   ngOnInit(): void {
     this.onGetAllPlayers();
@@ -66,25 +66,33 @@ export class Players implements OnInit {
   }
 
   onSearch() {
-   this.playersObservable$ = this.playerService
+    this.playersObservable$ = this.playerService
       .getAllPlayerSearch(this.playerName())
       .pipe(
-        map((data) => ( console.log(data),{
-          dataStateStatus: StateStatus.LOADED,
-          dataState: data,
-        })),
+        map(
+          (data) => (
+            console.log(data),
+            {
+              dataStateStatus: StateStatus.LOADED,
+              dataState: data,
+            }
+          )
+        ),
         startWith({ dataStateStatus: StateStatus.LOADING }),
         catchError((error) =>
           of({ dataStateStatus: StateStatus.ERROR, dataStateError: error })
         )
-      ); 
+      );
   }
 
-  onNewPlayers() {}
-
-  onSelectedPlayer() {}
+  onChangeStatus(p: IPlayers) {
+    this.playerService.onChangeStatus(p).subscribe((data: IPlayers) => {
+      return data.selected;
+    });
+  }
 
   onUpdatePlayer() {}
 
+  onNewPlayers() {}
   deletePlayer() {}
 }

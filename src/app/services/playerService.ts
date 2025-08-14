@@ -18,9 +18,14 @@ export class PlayerService {
     return this.http.get<IPlayers[]>(this.baseUrl + 'players?selected=true');
   }
 
-  getAllPlayerSearch(playerName: any): Observable<IPlayers[]> {
+  getAllPlayerSearch(playerName: string): Observable<IPlayers[]> {
     return this.http.get<IPlayers[]>(
       this.baseUrl + 'players?playerName_like=' + playerName
     );
+  }
+
+  onChangeStatus(p: IPlayers): Observable<IPlayers> {
+    p.selected = !p.selected;
+    return this.http.put<IPlayers>(this.baseUrl + 'players/' + p.id, p);
   }
 }

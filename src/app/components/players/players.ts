@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { catchError, map, Observable, of, startWith } from 'rxjs';
 import { DataState, StateStatus } from '../../state/playersate';
-import { IPlayers } from '../../model/players';
+import { IPlayer } from '../../model/players';
 import { PlayerService } from '../../services/playerService';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -23,7 +23,7 @@ export class Players implements OnInit {
   protected readonly faTrash = faTrash;
   protected readonly faUserCheck = faUserCheck;
   protected readonly StateStatus = StateStatus;
-  protected playersObservable$ = new Observable<DataState<IPlayers[]>>();
+  protected playersObservable$ = new Observable<DataState<IPlayer[]>>();
   private readonly playerService = inject(PlayerService);
   private readonly router = inject(Router);
   protected readonly playerName = signal('');
@@ -78,19 +78,21 @@ export class Players implements OnInit {
       );
   }
 
-  onChangeStatus(p: IPlayers) {
-    this.playerService.changeStatus(p).subscribe((data: IPlayers) => {
+  onChangeStatus(p: IPlayer) {
+    this.playerService.changeStatus(p).subscribe((data: IPlayer) => {
       return data.selected;
     });
   }
 
-  onUpdatePlayer() {}
+  onEditPlayer(p: IPlayer) {
+    this.router.navigateByUrl('/editPlayerComponent/'+p.id);
+  }
 
   onNewPlayers() {
     this.router.navigateByUrl('/newPlayerComponent');
   }
 
-  onDeletePlayers(p: IPlayers) {
+  onDeletePlayers(p: IPlayer) {
     let conf = confirm(
       `Are you sure you want to delete the player: ${p.playerName}?`
     );

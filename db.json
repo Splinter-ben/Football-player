@@ -46,12 +46,13 @@
       "countryName": "France"
     },
     {
-      "playerName": "Benjamin",
+      "playerName": "Benj",
       "email": "ben@gmail.com",
       "gender": "M",
       "selected": true,
       "countryName": "France",
-      "id": 15
+      "id": 15,
+      "countryId": "2"
     }
   ]
 }

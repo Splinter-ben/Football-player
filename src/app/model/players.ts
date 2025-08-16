@@ -1,4 +1,4 @@
-export interface IPlayers {
+export interface IPlayer {
   id: number;
   playerName: string;
   email: string;

@@ -1,6 +1,6 @@
 import { inject, Injectable, Signal } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { IPlayers } from '../model/players';
+import { IPlayer } from '../model/players';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 
@@ -11,30 +11,38 @@ export class PlayerService {
   private http = inject(HttpClient);
   private apiURL = 'http://localhost:3000/';
 
-  getAllPlayers(): Observable<IPlayers[]> {
-    return this.http.get<IPlayers[]>(this.apiURL + 'players');
+  getPlayer(id: number): Observable<IPlayer[]> {
+    return this.http.get<IPlayer[]>(this.apiURL + 'players?id=' + id);
   }
 
-  getAllPlayerSelected(): Observable<IPlayers[]> {
-    return this.http.get<IPlayers[]>(this.apiURL + 'players?selected=true');
+  getAllPlayers(): Observable<IPlayer[]> {
+    return this.http.get<IPlayer[]>(this.apiURL + 'players');
   }
 
-  getAllPlayerSearch(playerName: string): Observable<IPlayers[]> {
-    return this.http.get<IPlayers[]>(
+  getAllPlayerSelected(): Observable<IPlayer[]> {
+    return this.http.get<IPlayer[]>(this.apiURL + 'players?selected=true');
+  }
+
+  getAllPlayerSearch(playerName: string): Observable<IPlayer[]> {
+    return this.http.get<IPlayer[]>(
       this.apiURL + 'players?playerName_like=' + playerName
     );
   }
 
-  changeStatus(p: IPlayers): Observable<IPlayers> {
-    p.selected = !p.selected;
-    return this.http.put<IPlayers>(this.apiURL + 'players/' + p.id, p);
+  updatePlayer(player: IPlayer): Observable<IPlayer> {
+    return this.http.put<IPlayer>(this.apiURL + 'players/' + player.id, player);
   }
 
-  deletePlayer(p: IPlayers): Observable<IPlayers> {
-    return this.http.delete<IPlayers>(`${this.apiURL}players/${p.id}`);
+  changeStatus(player: IPlayer): Observable<IPlayer> {
+    player.selected = !player.selected;
+    return this.http.put<IPlayer>(this.apiURL + 'players/' + player.id, player);
   }
-  
-  createPlayer(player: Omit<IPlayers, 'id'>): Observable<IPlayers> {
-    return this.http.post<IPlayers>(this.apiURL + 'players', player);
+
+  deletePlayer(p: IPlayer): Observable<IPlayer> {
+    return this.http.delete<IPlayer>(`${this.apiURL}players/${p.id}`);
+  }
+
+  createPlayer(player: Omit<IPlayer, 'id'>): Observable<IPlayer> {
+    return this.http.post<IPlayer>(this.apiURL + 'players', player);
   }
 }

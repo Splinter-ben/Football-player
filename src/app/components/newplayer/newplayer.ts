@@ -21,9 +21,9 @@ export class Newplayer {
   private readonly fb = inject(FormBuilder);
   private readonly playerService = inject(PlayerService);
   protected playerForm: FormGroup;
-  createSuccess!: boolean;
-  email!: string;
-  countryList: ICountry[] = [
+  protected createSuccess!: boolean;
+  protected email!: string;
+  protected countryList: ICountry[] = [
     { id: 1, countryName: 'Cameroun' },
     { id: 2, countryName: 'France' },
     { id: 3, countryName: 'Brésil' },

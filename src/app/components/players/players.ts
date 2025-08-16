@@ -1,13 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Signal,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
-import { routes } from '../../app.routes';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { catchError, map, Observable, of, startWith } from 'rxjs';
 import { DataState, StateStatus } from '../../state/playersate';
 import { IPlayers } from '../../model/players';
@@ -19,7 +10,8 @@ import {
   faTrash,
   faUserCheck,
 } from '@fortawesome/free-solid-svg-icons';
-import { FormControl, FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-players',
   imports: [AsyncPipe, CommonModule, FontAwesomeModule, FormsModule],
@@ -27,13 +19,14 @@ import { FormControl, FormsModule, NgForm } from '@angular/forms';
   styleUrl: './players.css',
 })
 export class Players implements OnInit {
-  faPencil = faPencil;
-  faTrash = faTrash;
-  faUserCheck = faUserCheck;
+  protected readonly faPencil = faPencil;
+  protected readonly faTrash = faTrash;
+  protected readonly faUserCheck = faUserCheck;
   protected readonly StateStatus = StateStatus;
   protected playersObservable$ = new Observable<DataState<IPlayers[]>>();
-  private playerService = inject(PlayerService);
-  protected playerName = signal('');
+  private readonly playerService = inject(PlayerService);
+  private readonly router = inject(Router);
+  protected readonly playerName = signal('');
 
   ngOnInit(): void {
     this.onGetAllPlayers();
@@ -93,7 +86,9 @@ export class Players implements OnInit {
 
   onUpdatePlayer() {}
 
-  onNewPlayers() {}
+  onNewPlayers() {
+    this.router.navigateByUrl('/newPlayerComponent');
+  }
 
   onDeletePlayers(p: IPlayers) {
     let conf = confirm(
@@ -101,25 +96,8 @@ export class Players implements OnInit {
     );
     if (conf) {
       this.playerService.deletePlayer(p).subscribe({
-        next: (data) => {
-          console.log('Player deleted successfully:', data);
-          // Filter out the deleted player from the current observable
-          this.playersObservable$ = this.playersObservable$.pipe(
-            map((state) => {
-              if (
-                state.dataStateStatus === StateStatus.LOADED &&
-                state.dataState
-              ) {
-                return {
-                  ...state,
-                  dataState: state.dataState.filter(
-                    (player) => player.id !== p.id
-                  ),
-                };
-              }
-              return state;
-            })
-          );
+        next: () => {
+          this.onGetAllPlayers;
         },
         error: (error) => {
           console.error('Error deleting player:', error);

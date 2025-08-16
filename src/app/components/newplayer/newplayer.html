@@ -1,0 +1,73 @@
+<div class="container mt-4">
+  @if (createSuccess) {
+  <div class="alert alert-success">Player save success</div>
+  } @if (createSuccess === false) {
+  <div class="alert alert-danger">
+    Player not saved because the field is empty
+  </div>
+  }
+
+  <form
+    class="playerForm"
+    [formGroup]="playerForm"
+    (ngSubmit)="onCreatePlayer(playerForm)"
+    novalidate
+  >
+    <div class="mb-3 form-group w-25">
+      <label for="playerName" class="form-label">Player Name</label>
+      <input
+        type="text"
+        formControlName="playerName"
+        class="form-control border border-primary"
+        required minlength="3" maxlength="20"
+      />
+      @if (!playerForm.controls['playerName'].valid &&
+      (playerForm.controls['playerName'].dirty ||
+      playerForm.controls['playerName'].touched)) {
+      <div [ngStyle]="{'color': 'red'}">Email must be 3-20 characters long!</div>
+      }
+    </div>
+    <div class="mb-3 form-group border-primary w-25">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        formControlName="email"
+        class="form-control border border-primary"
+        required maxlength="30"
+      />
+      @if (!playerForm.controls['email'].valid &&
+      (playerForm.controls['email'].dirty ||
+      playerForm.controls['email'].touched)) {
+      <div [ngStyle]="{'color': 'red'}">Email must be 3-30 characters long!</div>
+      }
+    </div>
+
+    <label for="selected" class="form-label">Gender</label>
+    <div class="form-check form-group">
+      M <input type="radio" class="form-check-input border border-primary" value="M" formControlName="gender" />
+      <label for="gender" class="form-check-label" for="radioDefault"></label>
+    </div>
+    <div class="form-check form-group">
+      F <input type="radio" class="form-check-input border border-primary" value="F" formControlName="gender" />
+      <label for="gender" class="form-check-label" for="radioDefault"></label>
+    </div>
+
+ 
+    <div class="mb-3 form-check form-group">
+        <input type="checkbox" name="selected" id="selected" [checked]="false" class="form-check-input border border-primary" formControlName="selected">   
+        <label for="selected" class="form-label" >Selected</label>
+    </div>
+
+    <div class="form-group border border-primary mb-3 w-25">
+        <select formControlName="countryId" name="countryId" class="form-select" aria-label="Default select example">
+           @for (country of countryList; track country.id) {
+             <option type="number" [value]="country.id">{{ country.countryName}}</option>
+           }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" [ngClass]="(playerForm.valid? 'btn btn-primary':'btn btn-secondary && disabled')">Submit</button>
+    </div>
+  </form>
+</div>

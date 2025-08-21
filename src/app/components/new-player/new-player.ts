@@ -14,8 +14,8 @@ import { catchError } from 'rxjs';
 @Component({
   selector: 'app-newplayer',
   imports: [ReactiveFormsModule, ReactiveFormsModule, CommonModule],
-  templateUrl: './newplayer.html',
-  styleUrl: './newplayer.css',
+  templateUrl: './new-player.html',
+  styleUrl: './new-player.css',
 })
 export class Newplayer {
   private readonly fb = inject(FormBuilder);
@@ -51,7 +51,7 @@ export class Newplayer {
     if (playerForm.valid) {
       const formValue = playerForm.value;
 
-      const newPlayer = {
+      const newplayer = {
         playerName: formValue.playerName,
         email: formValue.email,
         gender: formValue.gender,
@@ -60,11 +60,11 @@ export class Newplayer {
         countryName: countryName || '',
       };
 
-      this.playerService.createPlayer(newPlayer).subscribe({
+      this.playerService.createPlayer(newplayer).subscribe({
         next: () => {
           this.createSuccess = true;
           playerForm.reset();
-          console.log('Player data to be created:', newPlayer);
+          console.log('Player data to be created:', newplayer);
         },
         error: (error) => {
           console.log('Error while creating a player !', error);

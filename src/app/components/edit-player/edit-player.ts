@@ -17,8 +17,8 @@ import { ICountry } from '../../model/country';
 @Component({
   selector: 'app-editplayer',
   imports: [FormsModule, ReactiveFormsModule, CommonModule],
-  templateUrl: './editplayer.html',
-  styleUrl: './editplayer.css',
+  templateUrl: './edit-player.html',
+  styleUrl: './edit-player.css',
 })
 export class Editplayer implements OnInit {
   private readonly fb = inject(FormBuilder);

@@ -70,11 +70,11 @@ export class Players implements OnInit {
   }
 
   onEditPlayer(p: IPlayer) {
-    this.router.navigateByUrl('/editPlayerComponent/' + p.id);
+    this.router.navigateByUrl('/edit-playerComponent/' + p.id);
   }
 
   onNewPlayers() {
-    this.router.navigateByUrl('/newPlayerComponent');
+    this.router.navigateByUrl('/new-playerComponent');
   }
 
   onDeletePlayers(p: IPlayer) {

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Editplayer } from './editplayer';
+import { Editplayer } from './edit-player';
 
 describe('Editplayer', () => {
   let component: Editplayer;

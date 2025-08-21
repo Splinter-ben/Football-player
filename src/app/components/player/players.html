@@ -1,51 +1,8 @@
-<app-navbar-player (PlayerEventEmitter)="actionEvent($event)"></app-navbar-player>
+<app-navbar-player
+  (PlayerEventEmitter)="actionEvent($event)"
+></app-navbar-player>
 
-<div class="container">
-  @if(playersObservable$ | async; as state){
-  <ng-container>
-    @switch (state.dataStateStatus) { @case (StateStatus.LOADING) {
-    <div class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-    } @case (StateStatus.ERROR) {
-    <div class="alert alert-danger" role="alert">{{state.dataStateError}}</div>
-    } @case (StateStatus.LOADED) {
-      <table class="table table-dark table-striped met-2">
-        <thead>
-          <tr>
-            <th>ID</th><th>PlayerName</th><th>Email</th><th>Selected</th><th>Gender</th><th>Country</th><th></th><th></th>
-          </tr>
-        </thead>
-        <tbody>
-          @for(p of state.dataState; track p.id){
-            <tr>
-            <td>{{p.id}}</td>
-            <td>{{p.playerName}}</td>
-            <td>{{p.email}}</td>
-            @if(p.selected){
-              <td><fa-icon class="text-success" [icon]="faUserCheck"/></td>
-            }@else{
-              <td><fa-icon class="text-danger" [icon]="faUserCheck"/></td>
-            }
-            <td>{{p.gender}}</td>
-            <td>{{p.countryName}}</td>
-            <td>
-              <button class="btn sm btn-success" [ngClass]="p.selected?'btn-success':'btn-danger'" 
-              (click)="onChangeStatus(p)">{{p.selected?'Selected':'Unselected'}}</button>
-            </td>
-            <td>
-              <button class="btn sm btn-success m-2" (click)="onEditPlayer(p)"><fa-icon [icon]="faPencil"/></button>
-              <button class="btn sm btn-danger m-2" (click)="onDeletePlayers(p)"><fa-icon [icon]="faTrash"/></button>
-            </td>
-          </tr>
-          }
-        </tbody>
-      </table>
-    }
-  }
-  </ng-container>
-
-  }
-</div>
+<app-list-player
+  [observablePlayer$]="playersObservable$"
+  (playerEventEmitter)="actionEvent($event)"
+></app-list-player>

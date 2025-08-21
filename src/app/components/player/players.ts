@@ -3,34 +3,18 @@ import { catchError, map, Observable, of, startWith } from 'rxjs';
 import { DataState, StateStatus } from '../../state/playersate';
 import { IPlayer } from '../../model/players';
 import { PlayerService } from '../../services/playerService';
-import { AsyncPipe, CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {
-  faPencil,
-  faTrash,
-  faUserCheck,
-} from '@fortawesome/free-solid-svg-icons';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarPlayer } from './navbar-player/navbar-player';
 import { ActionPlayer, ActionPlayerType } from '../../actions/action-player';
+import { ListPlayer } from './list-player/list-player';
 @Component({
   selector: 'app-players',
-  imports: [
-    AsyncPipe,
-    CommonModule,
-    FontAwesomeModule,
-    FormsModule,
-    NavbarPlayer,
-  ],
+  imports: [FormsModule, NavbarPlayer, ListPlayer],
   templateUrl: './players.html',
   styleUrl: './players.css',
 })
 export class Players implements OnInit {
-  protected readonly faPencil = faPencil;
-  protected readonly faTrash = faTrash;
-  protected readonly faUserCheck = faUserCheck;
-  protected readonly StateStatus = StateStatus;
   protected playersObservable$ = new Observable<DataState<IPlayer[]>>();
   private readonly playerService = inject(PlayerService);
   private readonly router = inject(Router);
@@ -123,6 +107,15 @@ export class Players implements OnInit {
         break;
       case ActionPlayerType.NEW_PLAYER:
         this.onNewPlayers();
+        break;
+      case ActionPlayerType.ON_CHANGE_STATUS_PLAYER:
+        this.onChangeStatus(event.payload);
+        break;
+      case ActionPlayerType.ON_EDIT_PLAYER:
+        this.onEditPlayer(event.payload);
+        break;
+      case ActionPlayerType.ON_DELETE_PLAYER:
+        this.onDeletePlayers(event.payload);
     }
   }
 }

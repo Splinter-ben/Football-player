@@ -41,18 +41,17 @@
       "playerName": "Zidane",
       "email": "zidane@gmail.com",
       "gender": "M",
-      "selected": true,
+      "selected": false,
       "countryId": "8",
       "countryName": "France"
     },
     {
-      "playerName": "Benj",
-      "email": "ben@gmail.com",
+      "playerName": "Kameni",
+      "email": "kameni@gmail.com",
       "gender": "M",
-      "selected": true,
-      "countryName": "France",
-      "id": 15,
-      "countryId": "2"
+      "selected": false,
+      "countryName": "Cameroun",
+      "id": 16
     }
   ]
 }

@@ -1,34 +1,4 @@
-<div class="container mb-1">
-  <ul class="nav nav-pills mt-5 ml-5">
-  <li class="nav-item bclick">
-     <button type="button" class="btn btn-outline-primary me-2" (click)="onGetAllPlayers()">ALL</button>
-  </li>
-
-  <li class="nav-item bclick">
-     <button type="button" class="btn btn-outline-primary me-2" (click)="onGetAllPlayersSelected()">Select</button>
-  </li>
-
-  <li class="nav-item bclick">
-    <button type="button" class="btn btn-outline-primary" (click)="onNewPlayers()">New</button>
-  </li>
-
-    <form (ngSubmit)="onSearch()"
-        class="d-flex m-lg-auto"
-      >
-        <input
-          type="text"
-          class="form-control border border-secondary me-2"
-          placeholder="Search"
-          name="playerName"
-          [ngModel]="playerName()"
-          (ngModelChange)="playerName.set($event)"
-          aria-label="Search"
-        />
-        <button type="submit" class="btn btn-secondary">Search</button>
-    </form>
-  </ul>
-</div>
-
+<app-navbar-player (PlayerEventEmitter)="actionEvent($event)"></app-navbar-player>
 
 <div class="container">
   @if(playersObservable$ | async; as state){

@@ -12,9 +12,17 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NavbarPlayer } from './navbar-player/navbar-player';
+import { ActionPlayer, ActionPlayerType } from '../../actions/action-player';
 @Component({
   selector: 'app-players',
-  imports: [AsyncPipe, CommonModule, FontAwesomeModule, FormsModule],
+  imports: [
+    AsyncPipe,
+    CommonModule,
+    FontAwesomeModule,
+    FormsModule,
+    NavbarPlayer,
+  ],
   templateUrl: './players.html',
   styleUrl: './players.css',
 })
@@ -28,9 +36,7 @@ export class Players implements OnInit {
   private readonly router = inject(Router);
   protected readonly playerName = signal('');
 
-  ngOnInit(): void {
-    this.onGetAllPlayers();
-  }
+  ngOnInit(): void {}
 
   onGetAllPlayers() {
     this.playersObservable$ = this.playerService.getAllPlayers().pipe(
@@ -58,19 +64,14 @@ export class Players implements OnInit {
     );
   }
 
-  onSearch() {
+  onSearch(playload: string) {
     this.playersObservable$ = this.playerService
-      .getAllPlayerSearch(this.playerName())
+      .getAllPlayerSearch(playload)
       .pipe(
-        map(
-          (data) => (
-            console.log(data),
-            {
-              dataStateStatus: StateStatus.LOADED,
-              dataState: data,
-            }
-          )
-        ),
+        map((data) => ({
+          dataStateStatus: StateStatus.LOADED,
+          dataState: data,
+        })),
         startWith({ dataStateStatus: StateStatus.LOADING }),
         catchError((error) =>
           of({ dataStateStatus: StateStatus.ERROR, dataStateError: error })
@@ -85,7 +86,7 @@ export class Players implements OnInit {
   }
 
   onEditPlayer(p: IPlayer) {
-    this.router.navigateByUrl('/editPlayerComponent/'+p.id);
+    this.router.navigateByUrl('/editPlayerComponent/' + p.id);
   }
 
   onNewPlayers() {
@@ -106,6 +107,22 @@ export class Players implements OnInit {
           alert('Failed to delete player. Please try again.');
         },
       });
+    }
+  }
+
+  actionEvent(event: ActionPlayer<any>) {
+    switch (event.type) {
+      case ActionPlayerType.GET_ALL_PLAYERS:
+        this.onGetAllPlayers();
+        break;
+      case ActionPlayerType.GET_ALL_PLAYER_SELECTED:
+        this.onGetAllPlayersSelected();
+        break;
+      case ActionPlayerType.GET_ALL_PLAYER_SEARCH:
+        this.onSearch(event.payload);
+        break;
+      case ActionPlayerType.NEW_PLAYER:
+        this.onNewPlayers();
     }
   }
 }

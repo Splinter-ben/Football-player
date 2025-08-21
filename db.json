@@ -37,21 +37,21 @@
       "countryName": "Brésil"
     },
     {
-      "id": 9,
-      "playerName": "Zidane",
-      "email": "zidane@gmail.com",
-      "gender": "M",
-      "selected": false,
-      "countryId": "8",
-      "countryName": "France"
-    },
-    {
       "playerName": "Kameni",
       "email": "kameni@gmail.com",
       "gender": "M",
       "selected": false,
       "countryName": "Cameroun",
       "id": 16
+    },
+    {
+      "playerName": "Zidane",
+      "email": "zidane@gmail.com",
+      "gender": "M",
+      "selected": true,
+      "id": 17,
+      "countryName": "France",
+      "countryId": "2"
     }
   ]
 }

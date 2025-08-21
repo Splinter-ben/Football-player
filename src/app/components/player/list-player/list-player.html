@@ -25,12 +25,15 @@
       </thead>
       <tbody>
         @for(player of state.dataState; track player.id){
-        <app-item-player [p]="player" (playerEventEmitter)="actionEvent($event)"></app-item-player>
+        <app-item-player
+          [p]="player"
+          (playerEventEmitter)="actionEvent($event)"
+          style="display: contents"
+        ></app-item-player>
         }
       </tbody>
     </table>
     } }
   </ng-container>
-
   }
 </div>

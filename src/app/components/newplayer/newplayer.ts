@@ -43,17 +43,13 @@ export class Newplayer {
   }
 
   onCreatePlayer(playerForm: FormGroup) {
+    // Find the selected country name
     const selectedCountryId = Number(playerForm.get('countryId')?.value);
     const country = this.countryList.find((c) => c.id === selectedCountryId);
     const countryName = country?.countryName;
 
     if (playerForm.valid) {
       const formValue = playerForm.value;
-
-      // Find the selected country name
-      const selectedCountry = this.countryList.find(
-        (c) => c.id === formValue.country
-      );
 
       const newPlayer = {
         playerName: formValue.playerName,

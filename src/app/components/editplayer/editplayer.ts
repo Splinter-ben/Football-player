@@ -71,18 +71,25 @@ export class Editplayer implements OnInit {
   }
 
   onUpdatePlayer(playerForm: FormGroup) {
+    // Find the selected country name
+    const selectedCountryId = Number(playerForm.get('countryId')?.value);
+    const country = this.countryList.find((c) => c.id === selectedCountryId);
+    const countryName = country?.countryName;
+
     if (playerForm.valid && this.player && this.player.length > 0) {
+      
       const updatedPlayer: IPlayer = {
         ...this.player[0],
         playerName: playerForm.value.playerName,
         email: playerForm.value.email,
         gender: playerForm.value.gender,
         selected: playerForm.value.selected,
+        countryName: countryName || '',
         countryId: playerForm.value.countryId,
       };
 
       this.playerService.updatePlayer(updatedPlayer).subscribe({
-        next: (response) => {
+        next: () => {
           this.updateSuccess = true;
           this.cdr.detectChanges();
         },

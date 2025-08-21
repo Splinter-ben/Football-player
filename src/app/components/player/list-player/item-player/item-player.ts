@@ -7,7 +7,10 @@ import {
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
 import { IPlayer } from '../../../../model/players';
-import { ActionPlayer, ActionPlayerType } from '../../../../actions/action-player';
+import {
+  ActionPlayer,
+  ActionPlayerType,
+} from '../../../../actions/action-player';
 
 @Component({
   selector: 'app-item-player',
@@ -35,6 +38,7 @@ export class ItemPlayer {
       payload: p,
     });
   }
+  
   onDeletePlayers(p: IPlayer) {
     this.playerEventEmitter.emit({
       type: ActionPlayerType.ON_DELETE_PLAYER,

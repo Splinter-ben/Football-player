@@ -1,5 +1,7 @@
 <div class="container mt-4">
-  <div *ngIf="updateSuccess" class="alert alert-success">Player save success</div>
+  <div *ngIf="updateSuccess" class="alert alert-success">
+    Player save success
+  </div>
   <div *ngIf="updateSuccess === false" class="alert alert-danger">
     Player not saved because the field is empty
   </div>
@@ -10,7 +12,6 @@
     (ngSubmit)="onUpdatePlayer(playerForm)"
     novalidate
   >
-
     <div class="mb-3 form-group w-25">
       <label for="playerName" class="form-label">Player Name</label>
       <input

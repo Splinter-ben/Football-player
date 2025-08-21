@@ -1,0 +1,29 @@
+<tr>
+  <td>{{p.id}}</td>
+  <td>{{p.playerName}}</td>
+  <td>{{p.email}}</td>
+  @if(p.selected){
+  <td><fa-icon class="text-success" [icon]="faUserCheck" /></td>
+  }@else{
+  <td><fa-icon class="text-danger" [icon]="faUserCheck" /></td>
+  }
+  <td>{{p.gender}}</td>
+  <td>{{p.countryName}}</td>
+  <td>
+    <button
+      class="btn sm btn-success"
+      [ngClass]="p.selected?'btn-success':'btn-danger'"
+      (click)="onChangeStatus(p)"
+    >
+      {{p.selected?'Selected':'Unselected'}}
+    </button>
+  </td>
+  <td>
+    <button class="btn sm btn-success m-2" (click)="onEditPlayer(p)">
+      <fa-icon [icon]="faPencil" />
+    </button>
+    <button class="btn sm btn-danger m-2" (click)="onDeletePlayers(p)">
+      <fa-icon [icon]="faTrash" />
+    </button>
+  </td>
+</tr>

@@ -4,8 +4,8 @@ This is about selectionning a football player
 
 ## Development server
 
-To start a local development server, run:
+To start a local development with local database run:
 
 ```bash
-ng serve or npm run
+npm start
 ```

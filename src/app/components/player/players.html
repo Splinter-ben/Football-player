@@ -1,8 +1,5 @@
-<app-navbar-player
-  (PlayerEventEmitter)="actionEvent($event)"
-></app-navbar-player>
+<app-navbar-player></app-navbar-player>
 
 <app-list-player
   [observablePlayer$]="playersObservable$"
-  (playerEventEmitter)="actionEvent($event)"
 ></app-list-player>

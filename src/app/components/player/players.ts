@@ -2,12 +2,13 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { catchError, map, Observable, of, startWith } from 'rxjs';
 import { DataState, StateStatus } from '../../state/playersate';
 import { IPlayer } from '../../model/players';
-import { PlayerService } from '../../services/playerService';
+import { PlayerService } from '../../services/player-service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarPlayer } from './navbar-player/navbar-player';
 import { ActionPlayer, ActionPlayerType } from '../../actions/action-player';
 import { ListPlayer } from './list-player/list-player';
+import { EventDrivenService } from '../../services/event-driven-service';
 @Component({
   selector: 'app-players',
   imports: [FormsModule, NavbarPlayer, ListPlayer],
@@ -19,8 +20,13 @@ export class Players implements OnInit {
   private readonly playerService = inject(PlayerService);
   private readonly router = inject(Router);
   protected readonly playerName = signal('');
+  private eventDriveService = inject(EventDrivenService);
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.eventDriveService.eventDrivenObservable$.subscribe(
+      (actionPlayer: ActionPlayer<string>) => this.ActionEvent(actionPlayer)
+    );
+  }
 
   onGetAllPlayers() {
     this.playersObservable$ = this.playerService.getAllPlayers().pipe(
@@ -94,7 +100,7 @@ export class Players implements OnInit {
     }
   }
 
-  actionEvent(event: ActionPlayer<any>) {
+  ActionEvent(event: ActionPlayer<any>) {
     switch (event.type) {
       case ActionPlayerType.GET_ALL_PLAYERS:
         this.onGetAllPlayers();

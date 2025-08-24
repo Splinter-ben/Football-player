@@ -49,9 +49,8 @@
       "email": "zidane@gmail.com",
       "gender": "M",
       "selected": true,
-      "id": 17,
       "countryName": "France",
-      "countryId": "2"
+      "id": 17
     }
   ]
 }

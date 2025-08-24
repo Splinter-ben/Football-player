@@ -8,8 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ICountry } from '../../model/country';
-import { PlayerService } from '../../services/playerService';
-import { catchError } from 'rxjs';
+import { PlayerService } from '../../services/player-service';
 
 @Component({
   selector: 'app-newplayer',

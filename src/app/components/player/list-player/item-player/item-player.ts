@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import {
   faPencil,
   faTrash,
@@ -11,6 +11,7 @@ import {
   ActionPlayer,
   ActionPlayerType,
 } from '../../../../actions/action-player';
+import { EventDrivenService } from '../../../../services/event-driven-service';
 
 @Component({
   selector: 'app-item-player',
@@ -22,25 +23,26 @@ export class ItemPlayer {
   protected readonly faPencil = faPencil;
   protected readonly faTrash = faTrash;
   protected readonly faUserCheck = faUserCheck;
+  private eventDriveService = inject(EventDrivenService);
   @Input() p!: IPlayer;
   @Output() playerEventEmitter = new EventEmitter<ActionPlayer<IPlayer>>();
 
   onChangeStatus(p: IPlayer) {
-    this.playerEventEmitter.emit({
+    this.eventDriveService.publishAction({
       type: ActionPlayerType.ON_CHANGE_STATUS_PLAYER,
       payload: p,
     });
   }
 
   onEditPlayer(p: IPlayer) {
-    this.playerEventEmitter.emit({
+    this.eventDriveService.publishAction({
       type: ActionPlayerType.ON_EDIT_PLAYER,
       payload: p,
     });
   }
-  
+
   onDeletePlayers(p: IPlayer) {
-    this.playerEventEmitter.emit({
+    this.eventDriveService.publishAction({
       type: ActionPlayerType.ON_DELETE_PLAYER,
       payload: p,
     });

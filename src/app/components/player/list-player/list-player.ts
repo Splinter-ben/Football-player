@@ -16,29 +16,4 @@ import { ItemPlayer } from './item-player/item-player';
 export class ListPlayer {
   protected readonly StateStatus = StateStatus;
   @Input() observablePlayer$ = new Observable<DataState<IPlayer[]>>();
-  @Output() playerEventEmitter = new EventEmitter<ActionPlayer<IPlayer>>();
-
-  onChangeStatus(p: IPlayer) {
-    this.playerEventEmitter.emit({
-      type: ActionPlayerType.ON_CHANGE_STATUS_PLAYER,
-      payload: p,
-    });
-  }
-
-  onEditPlayer(p: IPlayer) {
-    this.playerEventEmitter.emit({
-      type: ActionPlayerType.ON_EDIT_PLAYER,
-      payload: p,
-    });
-  }
-  onDeletePlayers(p: IPlayer) {
-    this.playerEventEmitter.emit({
-      type: ActionPlayerType.ON_DELETE_PLAYER,
-      payload: p,
-    });
-  }
-
-  actionEvent(event: ActionPlayer<any>) {
-    this.playerEventEmitter.emit(event);
-  }
 }

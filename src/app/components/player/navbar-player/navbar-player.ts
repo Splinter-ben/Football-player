@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActionPlayer, ActionPlayerType } from '../../../actions/action-player';
+import { EventDrivenService } from '../../../services/event-driven-service';
 
 @Component({
   selector: 'app-navbar-player',
@@ -10,28 +11,30 @@ import { ActionPlayer, ActionPlayerType } from '../../../actions/action-player';
   styleUrl: './navbar-player.css',
 })
 export class NavbarPlayer {
-  @Output() PlayerEventEmitter: EventEmitter<ActionPlayer<string>> =
-    new EventEmitter<ActionPlayer<string>>();
+  private eventDriveService = inject(EventDrivenService);
   protected readonly playerName = signal('');
 
   onGetAllPlayers() {
-    this.PlayerEventEmitter.emit({ type: ActionPlayerType.GET_ALL_PLAYERS });
+    this.eventDriveService.publishAction({
+      type: ActionPlayerType.GET_ALL_PLAYERS,
+    });
   }
 
   onGetAllPlayersSelected() {
-    this.PlayerEventEmitter.emit({
+    this.eventDriveService.publishAction({
       type: ActionPlayerType.GET_ALL_PLAYER_SELECTED,
     });
   }
 
   onNewPlayers() {
-    this.PlayerEventEmitter.emit({ type: ActionPlayerType.NEW_PLAYER });
+    this.eventDriveService.publishAction({
+      type: ActionPlayerType.NEW_PLAYER,
+    });
   }
 
   onSearch() {
-    this.PlayerEventEmitter.emit({
-      type: ActionPlayerType.GET_ALL_PLAYER_SEARCH,
-      payload: this.playerName(),
+    this.eventDriveService.publishAction({
+      type: ActionPlayerType.GET_ALL_PLAYER_SEARCH, payload: this.playerName()
     });
   }
 }

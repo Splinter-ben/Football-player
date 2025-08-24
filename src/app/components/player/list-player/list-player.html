@@ -27,7 +27,6 @@
         @for(player of state.dataState; track player.id){
         <app-item-player
           [p]="player"
-          (playerEventEmitter)="actionEvent($event)"
           style="display: contents"
         ></app-item-player>
         }

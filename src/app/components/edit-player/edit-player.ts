@@ -9,7 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { PlayerService } from '../../services/playerService';
+import { PlayerService } from '../../services/player-service';
 import { IPlayer } from '../../model/players';
 import { CommonModule } from '@angular/common';
 import { ICountry } from '../../model/country';
